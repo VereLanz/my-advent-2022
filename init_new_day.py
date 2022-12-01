@@ -12,8 +12,7 @@ README_DAILY_TEMPLATE = \
 -
 
 ### Part Two
--
-"""
+-"""
 
 
 if __name__ == "__main__":
@@ -43,9 +42,13 @@ if __name__ == "__main__":
     day_readme = README_DAILY_TEMPLATE.format(year=YEAR, day_nr=day_nr)
     with open(here / "README.md", "r+") as readme:
         readme_content = readme.readlines()
-        day_idx = readme_content.index(f"## Day {day_nr}\n")  # should all exist for 1 to 25
-        readme_content.insert(day_idx + 1, day_readme)
-        # new text will always be longer than before, so no truncate needed
+        try:
+            day_idx = readme_content.index(f"## Day {day_nr}\n")  # should all exist for 1 to 25
+            readme_content.insert(day_idx + 1, day_readme)
+        except:
+            # if for some reason key was not found, rewrite readme as it was
+            pass
+        # new text will always be longer than or the same as before, so no truncate needed
         readme.seek(0)
         readme.writelines(readme_content)
 
