@@ -2,8 +2,7 @@ from typing import Any
 
 from aocd.models import Puzzle
 
-YEAR = 2021
-# TODO: update template year to actual year of repo when using!
+YEAR = 2022
 
 
 class MyPuzzle(Puzzle):

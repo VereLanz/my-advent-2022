@@ -4,7 +4,7 @@ from my_advent import YEAR
 
 setup(
     name="my-advent",
-    version="0.1",
+    version="0.2",
     packages=["my_advent"],
     author="VereLanz",
     author_email="verelanz@gmail.com",
