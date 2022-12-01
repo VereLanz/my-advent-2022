@@ -2,7 +2,7 @@
 [Find all the detailed official puzzle descriptions &#8594;](https://adventofcode.com/2022)
 
 <!-- 
-First: change or add current year in my_advent __init__.py, readme title, and readme AoC URL
+First: change or add current year in my_advent __init__.py, readme title and readme AoC URL above
 Start with: pip install -e .
 Daily run: python3.10 init_new_day.py <day_nr>
 -->
@@ -59,15 +59,14 @@ Daily run: python3.10 init_new_day.py <day_nr>
 
 
 ---
-## Day 1
-### *title*
+## Day 1  &#11088; &#11088;
+### *Calories for Elves*
 [code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day1.py)
 ### Part One
--
+The elves start their journey to collect fruit, and bring their own rations. Who has the most calories on their person, i.e. who can the others ask to share snacks if needed?
 
 ### Part Two
--
-
+One elf with a lot of food is not reassuring enough, let's find the top three calorie-carriers.
 
 [top &#8593;](#top)
 
