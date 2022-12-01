@@ -5,6 +5,16 @@ import webbrowser
 
 from my_advent import YEAR
 
+README_DAILY_TEMPLATE = \
+"""### *title*
+[code &#8614;](https://github.com/VereLanz/my-advent-{year}/blob/main/my_advent/day{day_nr}.py)
+### Part One
+-
+
+### Part Two
+-
+"""
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2 or not sys.argv[1].isdigit():
@@ -28,6 +38,16 @@ if __name__ == "__main__":
         test_content = test_content.replace(".day_template", f".day{day_nr}")
         with open(here / "tests" / f"test_day{day_nr}.py", "w") as test_day:
             test_day.write(test_content)
+
+    # edit readme.me to add daily text template
+    day_readme = README_DAILY_TEMPLATE.format(year=YEAR, day_nr=day_nr)
+    with open(here / "README.md", "r+") as readme:
+        readme_content = readme.readlines()
+        day_idx = readme_content.index(f"## Day {day_nr}\n")  # should all exist for 1 to 25
+        readme_content.insert(day_idx + 1, day_readme)
+        # new text will always be longer than before, so no truncate needed
+        readme.seek(0)
+        readme.writelines(readme_content)
 
     # open challenge of the day
     webbrowser.open(f"https://adventofcode.com/{YEAR}/day/{day_nr}")
