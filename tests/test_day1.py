@@ -21,11 +21,11 @@ EXAMPLE_INPUT = [
 ]
 
 
-def test_example_one():
+def test_example_a():
     example_result = 24000
     assert a(EXAMPLE_INPUT) == example_result
 
 
-def test_example_two():
+def test_example_b():
     example_result = 45000
     assert b(EXAMPLE_INPUT) == example_result

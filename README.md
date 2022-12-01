@@ -58,6 +58,7 @@ Daily run: python3.10 init_new_day.py <day_nr>
 
 
 
+<!-- Star emoji: &#11088; -->
 ---
 ## Day 1  &#11088; &#11088;
 ### *Calories for Elves*
