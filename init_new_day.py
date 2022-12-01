@@ -5,8 +5,7 @@ import webbrowser
 
 from my_advent import YEAR
 
-README_DAILY_TEMPLATE = \
-"""### *title*
+README_DAILY_TEMPLATE = """### *title*
 [code &#8614;](https://github.com/VereLanz/my-advent-{year}/blob/main/my_advent/day{day_nr}.py)
 ### Part One
 -
@@ -43,7 +42,9 @@ if __name__ == "__main__":
     with open(here / "README.md", "r+") as readme:
         readme_content = readme.readlines()
         try:
-            day_idx = readme_content.index(f"## Day {day_nr}\n")  # should all exist for 1 to 25
+            day_idx = readme_content.index(
+                f"## Day {day_nr}\n"
+            )  # should all exist for 1 to 25
             readme_content.insert(day_idx + 1, day_readme)
         except:
             # if for some reason key was not found, rewrite readme as it was
