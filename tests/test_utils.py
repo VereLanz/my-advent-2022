@@ -1,7 +1,7 @@
-from my_advent import get_today
+from my_advent import get_todays_puzzle
 
 
-def test_get_today():
+def test_get_todays_puzzle():
     expected_lines = [
         "83",
         "69",
@@ -111,5 +111,5 @@ def test_get_today():
         "32",
         "95",
     ]
-    _, lines = get_today(10, year=2020)
-    assert lines == expected_lines
+    puzzle = get_todays_puzzle(10, year=2020)
+    assert puzzle.input_lines == expected_lines
