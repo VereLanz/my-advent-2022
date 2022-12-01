@@ -2,7 +2,7 @@
 [Find all the detailed official puzzle descriptions &#8594;](https://adventofcode.com/2022)
 
 <!-- 
-First: change or add current year for my_advent init, setup.py, readme title + readme AoC URL, and readme code-link repo name
+First: change or add current year in my_advent __init__.py, readme title, and readme AoC URL
 Start with: pip install -e .
 Daily run: python3.10 init_new_day.py <day_nr>
 -->
@@ -60,6 +60,13 @@ Daily run: python3.10 init_new_day.py <day_nr>
 
 ---
 ## Day 1
+### *title*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day1.py)
+### Part One
+-
+
+### Part Two
+-
 
 
 [top &#8593;](#top)
@@ -256,23 +263,4 @@ Daily run: python3.10 init_new_day.py <day_nr>
 [top &#8593;](#top)
 
 
-
-
-<!---Daily Template
-
----
-## Day 
-### *name*
-[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day.py)
-### Part One
--
-
-### Part Two
--
-
-[top &#8593;](#top)
-
-
-
--->
 
