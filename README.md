@@ -64,7 +64,8 @@ Daily run: python3.10 init_new_day.py <day_nr>
 ### *Calories for Elves*
 [code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day1.py)
 ### Part One
-The elves start their journey to collect fruit, and bring their own rations. Who has the most calories on their person, i.e. who can the others ask to share snacks if needed?
+The elves start their journey to collect fruit, and bring their own rations. Who has the most calories 
+on their person, i.e. who can the others ask to share snacks if needed?
 
 ### Part Two
 One elf with a lot of food is not reassuring enough, let's find the top three calorie-carriers.
@@ -74,7 +75,15 @@ One elf with a lot of food is not reassuring enough, let's find the top three ca
 
 ---
 ## Day 2
+### *Rock Paper Scissors for Snacks*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day2.py)
+### Part One
+Who can have their tent closest to the snack storage is to be determined by a tournament of 
+Rock Paper Scissors. To win (unsuspicously), follow your secret strategy guide and see what your 
+score says.
 
+### Part Two
+-
 
 [top &#8593;](#top)
 
