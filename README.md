@@ -74,7 +74,7 @@ One elf with a lot of food is not reassuring enough, let's find the top three ca
 
 
 ---
-## Day 2
+## Day 2  &#11088; &#11088;
 ### *Rock Paper Scissors for Snacks*
 [code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day2.py)
 ### Part One
@@ -83,7 +83,7 @@ Rock Paper Scissors. To win (unsuspicously), follow your secret strategy guide a
 score says.
 
 ### Part Two
--
+Actually the secret strategy guide was so secret you read it wrong. Try again with the new format!
 
 [top &#8593;](#top)
 

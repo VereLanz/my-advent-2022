@@ -1,7 +1,7 @@
 import pytest
 
 from my_advent.day2 import calculate_points_for_strategy as a
-from my_advent.day2 import b as b
+from my_advent.day2 import calculate_points_for_new_strategy as b
 
 EXAMPLE_INPUT = [
     "A Y",
@@ -15,7 +15,6 @@ def test_example_a():
     assert a(EXAMPLE_INPUT) == example_result
 
 
-@pytest.mark.skip
 def test_example_b():
-    example_result = 0
+    example_result = 12
     assert b(EXAMPLE_INPUT) == example_result
