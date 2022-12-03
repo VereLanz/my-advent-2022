@@ -90,8 +90,16 @@ Actually the secret strategy guide was so secret you read it wrong. Try again wi
 
 
 ---
-## Day 3
+## Day 3  &#11088; &#11088;
+### *Organisation for Rucksacks*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day3.py)
+### Part One
+Packing contents of the elves rucksacks is complicated, and both compartments per rucksack cannot
+have any same items. Find the misplaced ones and prioritise their resorting!
 
+### Part Two
+Also, the badges showing each elf's group of three are complicated and all wrong. Figure out which
+item all three elves in a group have to relabel their badges. With priorities, of course!
 
 [top &#8593;](#top)
 
