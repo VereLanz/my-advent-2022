@@ -18,7 +18,6 @@ WINNING_COMBOS_A = [
     "CX",
 ]
 
-
 STRATEGY_B_LOOKUP = {
     "A": ["B", "A", "C"],  # Rock win, tie, lose
     "B": ["C", "B", "A"],  # Paper
@@ -31,6 +30,7 @@ STRATEGY_B = {
     "Z": (0, 6),  # win
 }
 
+
 def get_rps_score(opponent: str, you: str) -> int:
     your_score = POINTS[you]
     # a tie
@@ -42,6 +42,7 @@ def get_rps_score(opponent: str, you: str) -> int:
     # else is lose, +0
     return your_score
 
+
 def calculate_points_for_strategy(inputs: list[str]) -> int:
     your_scores = [get_rps_score(*inp.split()) for inp in inputs]
     return sum(your_scores)
@@ -51,7 +52,8 @@ def get_rps_strategy_score(opponent: str, your_plan: str) -> int:
     lookup_idx, your_score = STRATEGY_B[your_plan]
     your_score += POINTS[STRATEGY_B_LOOKUP[opponent][lookup_idx]]
     return your_score
-    
+
+
 def calculate_points_for_new_strategy(inputs: list[str]) -> int:
     your_scores = [get_rps_strategy_score(*inp.split()) for inp in inputs]
     return sum(your_scores)
