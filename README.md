@@ -122,8 +122,16 @@ Actually, any overlap might be too inefficient. How many at all overlapping sect
 
 
 ---
-## Day 5
+## Day 5  &#11088; &#11088;
+### *Crane for Crates*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day5.py)
+### Part One
+The supply crates were unloaded from the ships, but need to be rearranged. You have a giant crane
+at your disposal, that will move one crate at a time as instructed. Which crates will be on top of each stack?
 
+### Part Two
+You realise that your giant crane can actually move multiple crates at once, so you use that to reorganise 
+the crates. Which ones will now be on top at the end?
 
 [top &#8593;](#top)
 
