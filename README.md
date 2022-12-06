@@ -138,8 +138,15 @@ the crates. Which ones will now be on top at the end?
 
 
 ---
-## Day 6
+## Day 6  &#11088; &#11088;
+### *Buffer for Signals*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day6.py)
+### Part One
+You are being bullied because of your skills and are handed a broken communication device.
+You now need to figure out the buffer size before the packet start marker yourself.
 
+### Part Two
+...as well as for the message start marker.
 
 [top &#8593;](#top)
 
