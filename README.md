@@ -153,8 +153,16 @@ You now need to figure out the buffer size before the packet start marker yourse
 
 
 ---
-## Day 7
+## Day 7  &#11088; &#11088;
+### *File Sizes for Updating*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day7.py)
+### Part One
+Your device cannot update because it doesn't have enough disk space left. Use command line in- and outputs
+to find each directories size. 
 
+### Part Two
+Now that you know the folder sizes, find the smallest folder that you can delete to have enough
+space for installing the update.
 
 [top &#8593;](#top)
 
