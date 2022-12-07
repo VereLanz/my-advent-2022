@@ -13,12 +13,12 @@ def b(inputs: list[str]) -> int:
 
 def solve_a(puzzle: MyPuzzle):
     answer_a = a(puzzle.input_lines)
-    # puzzle.submit_a(answer_a)
+    puzzle.submit_a(answer_a)
 
 
 def solve_b(puzzle: MyPuzzle):
     answer_b = b(puzzle.input_lines)
-    # puzzle.submit_b(answer_b)
+    puzzle.submit_b(answer_b)
 
 
 if __name__ == "__main__":

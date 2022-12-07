@@ -5,6 +5,7 @@ import webbrowser
 
 from my_advent import YEAR
 
+
 README_DAILY_TEMPLATE = """### *title*
 [code &#8614;](https://github.com/VereLanz/my-advent-{year}/blob/main/my_advent/day{day_nr}.py)
 ### Part One
