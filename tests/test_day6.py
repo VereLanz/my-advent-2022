@@ -1,10 +1,9 @@
-import pytest
-
 from my_advent.day6 import find_packet_marker as a
 from my_advent.day6 import find_message_marker as b
 
+
 EXAMPLE_INPUT = [
-"mjqjpqmgbljsphdztnvjfqwrcgsmlb",
+    "mjqjpqmgbljsphdztnvjfqwrcgsmlb",
 ]
 
 

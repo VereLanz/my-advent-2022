@@ -1,7 +1,6 @@
-import pytest
-
 from my_advent.day3 import prioritise_rucksacks as a
 from my_advent.day3 import prioritise_badges as b
+
 
 EXAMPLE_INPUT = [
     "vJrwpWtwJgWrhcsFMMfFFhFp",

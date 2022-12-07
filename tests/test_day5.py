@@ -1,7 +1,6 @@
-import pytest
-
 from my_advent.day5 import reorganise_stacks as a
 from my_advent.day5 import reorganise_stacks_multiple as b
+
 
 EXAMPLE_INPUT = [
     "    [D]    ",

@@ -1,6 +1,7 @@
 from my_advent.day7 import get_small_folders as a
 from my_advent.day7 import free_up_space as b
 
+
 EXAMPLE_INPUT = [
     "$ cd /",
     "$ ls",

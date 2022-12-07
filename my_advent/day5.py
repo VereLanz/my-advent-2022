@@ -14,7 +14,9 @@ def read_stack_grid(grid: list[str]) -> list[str]:
     return stacks
 
 
-def move_stacks(stacks: list[str], movement: list[int], single: bool = True) -> list[str]:
+def move_stacks(
+    stacks: list[str], movement: list[int], single: bool = True
+) -> list[str]:
     match = re.search(r"move (\d+) from (\d+) to (\d+)", movement)
     amount, source, target = [int(match.group(i)) for i in range(1, 4)]
     if single:

@@ -1,7 +1,6 @@
-import pytest
-
 from my_advent.day4 import count_full_section_overlaps as a
 from my_advent.day4 import count_section_overaps as b
+
 
 EXAMPLE_INPUT = [
     "2-4,6-8",

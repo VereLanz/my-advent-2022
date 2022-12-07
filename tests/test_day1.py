@@ -1,6 +1,7 @@
 from my_advent.day1 import find_most_calories as a
 from my_advent.day1 import find_top3_calories as b
 
+
 EXAMPLE_INPUT = [
     "1000",
     "2000",

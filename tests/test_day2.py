@@ -1,7 +1,6 @@
-import pytest
-
 from my_advent.day2 import calculate_points_for_strategy as a
 from my_advent.day2 import calculate_points_for_new_strategy as b
+
 
 EXAMPLE_INPUT = [
     "A Y",
