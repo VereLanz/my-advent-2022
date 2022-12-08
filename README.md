@@ -169,8 +169,15 @@ space for installing the update.
 
 
 ---
-## Day 8
+## Day 8  &#11088;
+### *Trees for Houses*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day8.py)
+### Part One
+You find a grid of nice trees, so naturally you wonder if you could build a tree house there.
+Find out how protected from seeing eyes outside the tree grid the inner trees are.
 
+### Part Two
+-
 
 [top &#8593;](#top)
 
