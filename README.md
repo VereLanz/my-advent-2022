@@ -186,7 +186,15 @@ how blocked their view in each direction would be. How far can you see around yo
 
 ---
 ## Day 9
+### *Movement for Knots*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day9.py)
+### Part One &#11088;
+You see the swinging ropes of a rope bridge and wonder how the tail of the rope follows the head.
+How much does the tail move?
 
+### Part Two &#11088;
+If the rope is much longer and you look at additional 8 knots moving with the rope between
+its head and tail, how much does the tail move then?
 
 [top &#8593;](#top)
 
