@@ -202,7 +202,15 @@ its head and tail, how much does the tail move then?
 
 ---
 ## Day 10
+### *Cycles for Pixels*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day10.py)
+### Part One &#11088;
+The screen on your communication device is broken! Now you need to learn to interpret the
+device's signal yourself.
 
+### Part Two &#11088;
+You figured out how the signal is translated to pixels on the screen. Try your best to find
+what the screen would have shown you!
 
 [top &#8593;](#top)
 
