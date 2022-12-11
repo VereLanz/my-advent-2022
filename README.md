@@ -225,9 +225,9 @@ Monkeys have stolen items from your backpack! They are inspecting them (which ma
 then throwing them to another monkey. As you are too slow to get to all of them alone, focus on
 the most monkey business going on, meaning the most active monkeys there.
 
-### Part Two
-You begin to get increasingly worried. Maybe you'll never get your things back. Maybe it will take
-10 000 iterations of monkeys throwing things....
+### Part Two &#11088;
+You begin to get increasingly worried, too worried in fact. Maybe you'll never get your things back. 
+Maybe it will take 10 000 iterations of monkeys throwing things....you need to keep your worry in check!
 
 [top &#8593;](#top)
 
