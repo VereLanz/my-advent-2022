@@ -13,6 +13,7 @@ setup(
         "advent-of-code-data",  # aocd
         "numpy",
         "scipy",
+        "tqdm",
     ],
     tests_require=[
         "pytest",

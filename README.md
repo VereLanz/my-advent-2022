@@ -218,7 +218,16 @@ what the screen would have shown you!
 
 ---
 ## Day 11
+### *Items for Monkeys*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day11.py)
+### Part One &#11088;
+Monkeys have stolen items from your backpack! They are inspecting them (which makes you nervous) and
+then throwing them to another monkey. As you are too slow to get to all of them alone, focus on
+the most monkey business going on, meaning the most active monkeys there.
 
+### Part Two
+You begin to get increasingly worried. Maybe you'll never get your things back. Maybe it will take
+10 000 iterations of monkeys throwing things....
 
 [top &#8593;](#top)
 
