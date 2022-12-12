@@ -1,5 +1,5 @@
 from my_advent.day12 import find_shortest_hike_up as a
-from my_advent.day12 import b as b
+from my_advent.day12 import find_scenic_hike_up as b
 
 
 EXAMPLE_INPUT = [
@@ -17,5 +17,5 @@ def test_example_a():
 
 
 def test_example_b():
-    example_result = 0
+    example_result = 29
     assert b(EXAMPLE_INPUT) == example_result
