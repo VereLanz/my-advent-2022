@@ -235,7 +235,14 @@ Maybe it will take 10 000 iterations of monkeys throwing things....you need to k
 
 ---
 ## Day 12
+### *Hike for Signal*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day12.py)
+### Part One
+Your current position is too low to get a signal from your fellow elves. Find a good way to hike up
+to the highest point around while conserving your energy.
 
+### Part Two
+-
 
 [top &#8593;](#top)
 
