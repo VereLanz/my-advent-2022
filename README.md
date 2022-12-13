@@ -256,7 +256,7 @@ from lowest to highest point in this area, that the elves could make into a nice
 ### Part One &#11088;
 You have received a distress signal, though the packets seem to be out of order. Which ones look correct?
 
-### Part Two
+### Part Two &#11088;
 To decode the distress signal, you need to put the packets in the correct order, 
 including the decoder key signifiers.
 

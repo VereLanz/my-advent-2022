@@ -1,3 +1,4 @@
+from functools import cmp_to_key
 from pathlib import Path
 from typing import Union
 
@@ -45,8 +46,10 @@ def find_right_order_pairs(inputs: list[str]) -> int:
 
 
 def find_decoder_key(inputs: list[str]) -> int:
-    decoder_packs = "[[2]]\n[[6]]"
-    return 0
+    decoder_packs = [[[2]], [[6]]]
+    packets = [eval(i) for i in inputs if i and not "sudo" in i] + decoder_packs
+    packets.sort(key=cmp_to_key(compare_packs))
+    return (packets.index(decoder_packs[0]) + 1) * (packets.index(decoder_packs[1]) + 1)
 
 
 def solve_a(puzzle: MyPuzzle):
