@@ -251,7 +251,14 @@ from lowest to highest point in this area, that the elves could make into a nice
 
 ---
 ## Day 13
+### *Decoding for Distress*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day13.py)
+### Part One &#11088;
+You have received a distress signal, though the packets seem to be out of order. Which ones look correct?
 
+### Part Two
+To decode the distress signal, you need to put the packets in the correct order, 
+including the decoder key signifiers.
 
 [top &#8593;](#top)
 
