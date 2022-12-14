@@ -266,7 +266,15 @@ including the decoder key signifiers.
 
 ---
 ## Day 14
+### *Cave Path for Sand*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day14.py)
+### Part One &#11088;
+You have found a cave behind a waterfall from where the distress signal seems to originate.
+You notice some shaking, and then sand falling in the caves above you. How long will it take
+until sand from above will start trickling into your part of the cave?
 
+### Part Two
+-
 
 [top &#8593;](#top)
 
