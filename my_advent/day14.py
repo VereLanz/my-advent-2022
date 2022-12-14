@@ -85,7 +85,7 @@ def fill_cave_with_sand(inputs: list[str]) -> int:
     # create picture of result
     empty_columns = np.argwhere(np.all(cave[..., :] == 0, axis=0))
     print_cave = np.delete(cave, empty_columns, axis=1)
-    plt.imshow(print_cave)
+    plt.imshow(print_cave, interpolation='none')
     plt.savefig("day14.png")
     return sand_stacked
 
