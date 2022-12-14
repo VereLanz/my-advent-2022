@@ -11,8 +11,8 @@ setup(
     description=f"My Advent of Code {YEAR}",
     install_requires=[
         "advent-of-code-data",  # aocd
+        "matplotlib",
         "numpy",
-        "scipy",
         "tqdm",
     ],
     tests_require=[

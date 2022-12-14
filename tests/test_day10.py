@@ -159,4 +159,4 @@ def test_example_a():
 
 def test_example_b():
     # needs manual assertion by looking at the printed output!
-    b(EXAMPLE_INPUT)
+    b(EXAMPLE_INPUT, img_suffix="_test")

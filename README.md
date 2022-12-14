@@ -273,8 +273,9 @@ You have found a cave behind a waterfall from where the distress signal seems to
 You notice some shaking, and then sand falling in the caves above you. How long will it take
 until sand from above will start trickling into your part of the cave?
 
-### Part Two
--
+### Part Two &#11088;
+Whoops, the scan actually showed *your* cave being filled with sand! Find out when the sand
+stacks itself high enough to block the source and stops!
 
 [top &#8593;](#top)
 

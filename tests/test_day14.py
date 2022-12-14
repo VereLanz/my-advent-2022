@@ -1,5 +1,5 @@
 from my_advent.day14 import fill_cave_with_sand as a
-from my_advent.day14 import b as b
+from my_advent.day14 import fill_your_cave_with_sand as b
 
 
 EXAMPLE_INPUT = [
@@ -10,9 +10,9 @@ EXAMPLE_INPUT = [
 
 def test_example_a():
     example_result = 24
-    assert a(EXAMPLE_INPUT) == example_result
+    assert a(EXAMPLE_INPUT, img_suffix="_test") == example_result
 
 
 def test_example_b():
-    example_result = 0
-    assert b(EXAMPLE_INPUT) == example_result
+    example_result = 93
+    assert b(EXAMPLE_INPUT, img_suffix="_test") == example_result

@@ -33,7 +33,7 @@ def draw_pixel(screen: np.ndarray, pixel: int, sprite: list[int]):
         screen[row][column] = 1
 
 
-def draw_cycle_pixels(inputs: list[str]):
+def draw_cycle_pixels(inputs: list[str], img_suffix: str = ""):
     screen = np.zeros(shape=(6, SCREEN_COLUMNS))
     sprite = [0, 1, 2]
     current_pixel = 0
@@ -51,8 +51,7 @@ def draw_cycle_pixels(inputs: list[str]):
                     sprite[p] += int(value)
 
     plt.imshow(screen)
-    plt.savefig("day10.png")
-    plt.show()
+    plt.savefig(f"images/day10{img_suffix}.png")
 
 
 def solve_a(puzzle: MyPuzzle):

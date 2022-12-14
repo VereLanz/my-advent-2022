@@ -7,9 +7,13 @@ from my_advent import get_todays_puzzle, MyPuzzle
 
 
 SAND_SOURCE = (0, 500)
+ROCK = 1
+SAND = 2
 
 
 class Sand:
+    is_blocked = False
+    
     def __init__(self, start_point: tuple[int] = SAND_SOURCE):
         self.position = start_point
         self.has_dropped = False
@@ -34,11 +38,13 @@ class Sand:
         elif cave[right] == 0:
             self.position = right
         else:
-            cave[self.position] = 2
+            cave[self.position] = SAND
             self.has_stopped = True
+            if self.position == SAND_SOURCE:
+                Sand.is_blocked = True
         
 
-def parse_to_cave(inputs: list[str]) -> np.ndarray:
+def parse_to_cave(inputs: list[str], add_floor: bool = False) -> np.ndarray:
     rock_lines = []
     # attention: coords are FLIPPED here, for less confusing array access
     for line in inputs:
@@ -49,6 +55,9 @@ def parse_to_cave(inputs: list[str]) -> np.ndarray:
     ver_points = [coord[1] for lines in rock_lines for coord in lines]
     hor_shape = max(hor_points) + 1
     ver_shape = max(max(ver_points), SAND_SOURCE[1]) + 1
+    if add_floor:
+        hor_shape += 2
+        ver_shape *= 2  # sand will not fall further right than left of any structure
     cave = np.zeros((hor_shape, ver_shape))
     
     # rocks are represented by value 1
@@ -58,8 +67,10 @@ def parse_to_cave(inputs: list[str]) -> np.ndarray:
             point_b_x, point_b_y = lines[i + 1]
             coords_x = (min(point_a_x, point_b_x), max(point_a_x, point_b_x) + 1)
             coords_y = (min(point_a_y, point_b_y), max(point_a_y, point_b_y) + 1)
-            cave[coords_x[0]:coords_x[1], coords_y[0]:coords_y[1]] = 1
-            
+            cave[coords_x[0]:coords_x[1], coords_y[0]:coords_y[1]] = ROCK
+    if add_floor:
+        cave[-1][:] = ROCK
+                    
     return cave
 
 
@@ -72,7 +83,16 @@ def drop_sand(cave: np.ndarray) -> bool:
     return sand.has_dropped
 
 
-def fill_cave_with_sand(inputs: list[str]) -> int:
+def drop_sand_fully(cave: np.ndarray) -> bool:
+    sand = Sand()
+    while not sand.has_stopped:
+        sand.move(cave)
+        if sand.is_blocked:
+            break
+    return sand.is_blocked
+
+
+def fill_cave_with_sand(inputs: list[str], img_suffix: str = "") -> int:
     cave = parse_to_cave(inputs)
     sand_stacked = 0
     sand_dropped = False
@@ -86,12 +106,24 @@ def fill_cave_with_sand(inputs: list[str]) -> int:
     empty_columns = np.argwhere(np.all(cave[..., :] == 0, axis=0))
     print_cave = np.delete(cave, empty_columns, axis=1)
     plt.imshow(print_cave, interpolation='none')
-    plt.savefig("day14.png")
+    plt.savefig(f"images/day14_1{img_suffix}.png")
     return sand_stacked
 
 
-def b(inputs: list[str]) -> int:
-    return 0
+def fill_your_cave_with_sand(inputs: list[str], img_suffix: str = "") -> int:
+    cave = parse_to_cave(inputs, add_floor=True)
+    sand_stacked = 0
+    sand_blocked = False
+    while not sand_blocked:
+        sand_stacked += 1
+        sand_blocked = drop_sand_fully(cave)
+
+    # create picture of result
+    empty_columns = np.argwhere(np.all(cave[:-1, :] == 0, axis=0))
+    print_cave = np.delete(cave, empty_columns, axis=1)
+    plt.imshow(print_cave, interpolation='none')
+    plt.savefig(f"images/day14_2{img_suffix}.png")
+    return sand_stacked
 
 
 def solve_a(puzzle: MyPuzzle):
@@ -100,7 +132,7 @@ def solve_a(puzzle: MyPuzzle):
 
 
 def solve_b(puzzle: MyPuzzle):
-    answer_b = b(puzzle.input_lines)
+    answer_b = fill_your_cave_with_sand(puzzle.input_lines)
     puzzle.submit_b(answer_b)
 
 
