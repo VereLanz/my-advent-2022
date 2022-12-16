@@ -3,7 +3,10 @@ from pathlib import Path
 from my_advent import get_todays_puzzle, MyPuzzle
 
 
-def a(inputs: list[str]) -> int:
+TIME_AVAILABLE = 30  # minutes = steps
+
+
+def max_pressure_release(inputs: list[str]) -> int:
     return 0
 
 
@@ -12,7 +15,7 @@ def b(inputs: list[str]) -> int:
 
 
 def solve_a(puzzle: MyPuzzle):
-    answer_a = a(puzzle.input_lines)
+    answer_a = max_pressure_release(puzzle.input_lines)
     puzzle.submit_a(answer_a)
 
 

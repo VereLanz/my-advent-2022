@@ -299,10 +299,13 @@ point not covered by any sensor. The only problem is, the cave system is very la
 
 ---
 ## Day 16
-### *title*
+### *Valves for Volcano*
 [code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day16.py)
 ### Part One
--
+You find yourself in a cave full of elephants, and on top of that notice that this is actually
+a volcano. Also, there are pressure-release valves for the volcano scattered around the cave!
+You don't need to understand what happened here to know you have to save the elephants by
+stopping the volcano from erupting! How much pressure can you release through the valves?
 
 ### Part Two
 -
