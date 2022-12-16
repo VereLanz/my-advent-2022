@@ -36,14 +36,11 @@ class Sensor:
             covered_points.append((self.position[0] + x, loi))
         self.loi_coverage = covered_points
             
-    def calc_coverage_in_restricted_line(self, loi: int, x_limit: int):
-        covered_points = []
+    def calc_coverage_range_restricted(self, loi: int, x_limit: int):
         x_range = self.coverage_distance - abs(self.position[1] - loi)
         x_lower = max(self.position[0] - abs(x_range), MIN_DISTRESS_COORD)
         x_upper = min(self.position[0] + abs(x_range), x_limit)
-        for x in range(x_lower, x_upper + 1):
-            covered_points.append((x, loi))
-        self.loi_coverage_restricted = covered_points
+        return range(x_lower, x_upper + 1)
         
     def cover_points(self, x: int, y: int) -> list[tuple[int]]:
         points = []
@@ -94,21 +91,20 @@ def rule_out_locations(inputs: list[str], line_of_interest: int) -> int:
 
 def find_distress_frequency(inputs: list[str], max_coord: int = MAX_DISTRESS_COORD) -> int:
     sensors = parse_sensor_points(inputs)
-    covered_points = []
-    # TODO: the theory seems sound, but this is not scaling to 4 Mio!
-    for sensor in tqdm(sensors):
-        for line in range(MIN_DISTRESS_COORD, max_coord + 1):
-            sensor.calc_coverage_in_restricted_line(line, max_coord)
-            covered_points += sensor.loi_coverage_restricted
-    
-    # TODO: find a better way to determine the MISSING one in covered_points
-    full_grid = []
-    for x in range(MIN_DISTRESS_COORD, max_coord + 1):
-        for y in range(MIN_DISTRESS_COORD, max_coord + 1):
-            full_grid.append((x, y))
-    
-    (empty_point, ) = set(full_grid) - set(covered_points)
-    return calc_tuning_frequency(empty_point[0], empty_point[1])
+    # TODO: the theory seems sound, but this is not scaling to 4 Mio with lists!
+    for line in tqdm(range(MIN_DISTRESS_COORD, max_coord + 1)):
+        covered = set()
+        sensors_of_interest = [s for s in sensors if line in s.covered_lines]
+        for sensor in sensors_of_interest:
+            covered_new = sensor.calc_coverage_range_restricted(line, max_coord)
+            covered.update(set(covered_new))
+            if len(covered) == max_coord + 1:  # line is already fully covered
+                break
+        if len(covered) == max_coord:  # one entry missing for full line
+            empty_point_y = line
+            break
+    (empty_point_x, ) = set(range(MIN_DISTRESS_COORD, max_coord + 1)) - covered
+    return calc_tuning_frequency(empty_point_x, empty_point_y)
 
 
 def solve_a(puzzle: MyPuzzle):
@@ -118,6 +114,7 @@ def solve_a(puzzle: MyPuzzle):
 
 def solve_b(puzzle: MyPuzzle):
     answer_b = find_distress_frequency(puzzle.input_lines)
+    print(answer_b)
     puzzle.submit_b(answer_b)
 
 
@@ -126,4 +123,4 @@ if __name__ == "__main__":
     day_nr = int(Path(__file__).stem[3:])
     my_puzzle = get_todays_puzzle(day_nr)
     # solve_a(my_puzzle)
-    solve_b(my_puzzle)
+    # solve_b(my_puzzle)
