@@ -299,7 +299,7 @@ point not covered by any sensor. The only problem is, the cave system is very la
 
 ---
 ## Day 16
-### *Valves for Volcano*
+### *Valves for Volcano Pressure*
 [code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day16.py)
 ### Part One
 You find yourself in a cave full of elephants, and on top of that notice that this is actually
@@ -316,7 +316,15 @@ stopping the volcano from erupting! How much pressure can you release through th
 
 ---
 ## Day 17
+### *Wind for Stones*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day17.py)
+### Part One
+A pattern of stone shapes keeps falling down into a cave you need to pass while also being pushed
+around by wind gusts. Prove to the elephants that you can predict where stones will fall when
+so you can lead them through there safely!
 
+### Part Two
+-
 
 [top &#8593;](#top)
 
