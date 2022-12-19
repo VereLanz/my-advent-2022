@@ -333,7 +333,14 @@ they want you to show them a simulation of absurd size.
 
 ---
 ## Day 18
+### *Cooling for Lava Droplets*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day18.py)
+### Part One &#11088;
+Your device scans a low resolution lava droplet. How much surface area does it have?
 
+### Part Two
+You notice it must have enclosed air in it, because the surface area doesn't seem to be the same as 
+the outer area being cooled faster. How much strictly outer surface area does the droplet have?
 
 [top &#8593;](#top)
 
