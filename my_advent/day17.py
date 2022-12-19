@@ -1,73 +1,127 @@
-from itertools import repeat
+from itertools import cycle
 from pathlib import Path
+from typing import Generator
 
 import numpy as np
+from tqdm import tqdm
 
 from my_advent import get_todays_puzzle, MyPuzzle
 
 
-STONES_WATCHED = 2022
-CAVE_WIDTH = 7
 STONE_PATTERNS = [
-    np.array([[1, 1, 1, 1]]),
-    np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]]),
-    np.array([[0, 0, 1], [0, 0, 1], [1, 1, 1]]),
-    np.array([[1], [1], [1], [1]]),
-    np.array([[1, 1], [1, 1]]),
-    
+    {0 + 0j, 1 + 0j, 2 + 0j, 3 + 0j},  # ----
+    {1 + 0j, 0 + 1j, 1 + 1j, 2 + 1j, 1 + 2j},  # +
+    {0 + 0j, 1 + 0j, 2 + 0j, 2 + 1j, 2 + 2j},  # _|
+    {0 + 0j, 0 + 1j, 0 + 2j, 0 + 3j},  # |
+    {0 + 0j, 1 + 0j, 0 + 1j, 1 + 1j},  # square
 ]
+GUST_DIRECTIONS = {
+    "<": -1 + 0j,
+    ">": +1 + 0j,
+}
+DOWN = 0 - 1j
+SPAWN_OFFSET = 2 + 4j
+CAVE_WIDTH = 7
 
 
 class Stone:
-    def __init__(self, shape: np.ndarray, tower_height: int):
-        self.shape = shape
-        # 0 is the left wall, 0 is the floor
-        self.width = np.array([3, 3 + self.shape.shape(1)])  # from left
-        self.height = np.array(
-            [tower_height + 4, tower_height + 4 + self.shape.shape(0)]
-        )  # from floor
+    def __init__(self, position: set[complex], cave_rocks: set[complex]):
+        highest_rock = max([r.imag for r in cave_rocks]) * 1j
+        self.position = {p + SPAWN_OFFSET + highest_rock for p in position}
         self.falling = True
         
-    def touching_ground(self, cave_outline):
-        # TODO: how to work with the cave outline?
-        pass
+    def move(self, direction: complex, cave_rocks: set[complex]):
+        old_position = self.position
+        self.position = {part + direction for part in self.position}
+        if self._touching_rock(cave_rocks):
+            # undo move
+            self.position = old_position
+            if direction == DOWN:
+                # stone stops if down-obstacle
+                self.falling = False
+    
+    def _touching_rock(self, cave_rocks: set[complex]) -> bool:
+        # touching left wall, right wall, any other settled rock, or cave floor
+        if any(part.real < 0 for part in self.position) or \
+           any(part.real >= CAVE_WIDTH for part in self.position) or \
+           len(cave_rocks & self.position) >= 1 or \
+           any(part.imag < 0 for part in self.position):
+               return True
+        return False
         
 
-def next_stone_shape() -> np.ndarray:
-    for stone_shape in repeat(STONE_PATTERNS):
-        yield stone_shape
-        
-        
-def next_gust(gust_pattern: list[str]) -> str:
-    for gust in repeat(gust_pattern):
-        yield gust
-        
-
-def predict_stone_tower_height(inputs: list[str]) -> int:
-    gust_pattern = list(inputs[0])
-    tower_height = 0
-    cave_outline = np.zeros((6, CAVE_WIDTH))
-    for _ in range(STONES_WATCHED):
-        stone = Stone(next_stone_shape(), tower_height)
+def predict_stone_tower_height(inputs: list[str], stones_watched: int = 2022) -> int:
+    gusts = cycle(list(inputs[0]))
+    stone_shapes = cycle(STONE_PATTERNS)
+    cave_rocks = {0 - 1j}  # one ground stone, floor is at -1
+    for _ in tqdm(range(stones_watched)):
+        stone = Stone(next(stone_shapes), cave_rocks)
         while stone.falling:
-            if next_gust(gust_pattern) == "<":
-                # TODO: or touching another STONE!
-                if stone.width[0] > 1:
-                    stone.width -= 1
-            else:
-                # TODO: or touching another STONE!
-                if stone.width[1] < CAVE_WIDTH:
-                    stone.width += 1
-            if stone.touching_ground(cave_outline):
-                stone.falling = False
-                # TODO: change cave_outline + tower_height
-            else:
-                stone.height -= 1
-    return tower_height
+            stone.move(GUST_DIRECTIONS[next(gusts)], cave_rocks)
+            stone.move(DOWN, cave_rocks)
+        cave_rocks.update(stone.position)
+    return int(max([r.imag for r in cave_rocks])) + 1  # count starts at 0
 
 
-def b(inputs: list[str]) -> int:
-    return 0
+def drop_stones(
+    stone_shapes: Generator[set[complex], None, None], 
+    gusts: Generator[str, None, None], 
+    stones_to_drop: int, 
+    cave_rocks: set[complex] = {0 - 1j}
+) -> list[int]:
+    tower_heights = []  # floor height is -1
+    for _ in tqdm(range(stones_to_drop)):
+        stone = Stone(next(stone_shapes), cave_rocks)
+        while stone.falling:
+            stone.move(GUST_DIRECTIONS[next(gusts)], cave_rocks)
+            stone.move(DOWN, cave_rocks)
+        cave_rocks.update(stone.position)
+        tower_heights.append(max([r.imag + 1 for r in cave_rocks]))  # height is y + 1
+    return tower_heights
+
+
+# taken from colleague LB
+def find_repeating_height_pattern(
+    values: list[int], min_length: int, max_length: int
+) -> tuple[int]:
+    """
+    Find a sequence in the given list with a length between min_length and max_length
+    which repeats at least 3 times:
+    """
+    print("finding pattern...")
+    for i in range(len(values) - 3 * max_length):
+        for length in range(min_length, max_length):
+            if all(values[i : i + length] == values[i + length : i + 2 * length]) and \
+               all(values[i + length : i + 2 * length] == \
+                   values[i + 2 * length : i + 3 * length]):
+                print("pattern found!")
+                return i, length
+    return None
+
+
+def predict_stone_tower_height_efficiently(
+    inputs: list[str], stones_watched: int = 1_000_000_000_000
+) -> int:
+    gusts = cycle(list(inputs[0]))
+    stone_shapes = cycle(STONE_PATTERNS)
+    # drop a managable but big enough amount to search for patterns
+    heights = drop_stones(stone_shapes, gusts, stones_to_drop=10_000)
+    # min and max length values come from experimentation...
+    pattern_start, pattern_length = find_repeating_height_pattern(
+        np.diff(heights), 10, 3000
+    )
+    pattern_height = heights[pattern_start + pattern_length] - heights[pattern_start]
+    
+    # "repeat pattern" for all coming blocks after pattern starts
+    blocks_repeating_pattern = stones_watched - (pattern_start + 1)
+    tower_height = (blocks_repeating_pattern // pattern_length) * pattern_height
+    # add height from before the pattern starts
+    tower_height += heights[pattern_start]
+    # there might be blocks not fully running the pattern at the end
+    remaining_blocks = blocks_repeating_pattern % pattern_length
+    tower_height += heights[pattern_start + remaining_blocks] - heights[pattern_start]
+        
+    return int(tower_height)
 
 
 def solve_a(puzzle: MyPuzzle):
@@ -76,7 +130,7 @@ def solve_a(puzzle: MyPuzzle):
 
 
 def solve_b(puzzle: MyPuzzle):
-    answer_b = b(puzzle.input_lines)
+    answer_b = predict_stone_tower_height_efficiently(puzzle.input_lines)
     puzzle.submit_b(answer_b)
 
 

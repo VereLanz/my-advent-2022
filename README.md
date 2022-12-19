@@ -318,13 +318,14 @@ stopping the volcano from erupting! How much pressure can you release through th
 ## Day 17
 ### *Wind for Stones*
 [code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day17.py)
-### Part One
+### Part One &#11088;
 A pattern of stone shapes keeps falling down into a cave you need to pass while also being pushed
 around by wind gusts. Prove to the elephants that you can predict where stones will fall when
 so you can lead them through there safely!
 
-### Part Two
--
+### Part Two &#11088;
+The elephants are very hard to impress (or maybe just _extremely_ scared of the falling stones), so
+they want you to show them a simulation of absurd size.
 
 [top &#8593;](#top)
 
