@@ -289,7 +289,7 @@ stacks itself high enough to block the source and stops!
 You send out a bunch of sensors that will each tell you where the closest beacon to them is.
 You know that none of those are the distress signal you're picking up, so where do you know it isn't?
 
-### Part Two
+### Part Two &#11088;
 You know the area in which the distress signal has to be, so there should be only one single
 point not covered by any sensor. The only problem is, the cave system is very large...
 

@@ -1,12 +1,10 @@
 from pathlib import Path
 
+from shapely.geometry import Polygon
+from shapely.ops import unary_union
 from tqdm import tqdm
 
 from my_advent import get_todays_puzzle, MyPuzzle
-
-
-MIN_DISTRESS_COORD = 0
-MAX_DISTRESS_COORD = 4_000_000
 
 
 class Sensor:
@@ -35,29 +33,6 @@ class Sensor:
         for x in range(-x_range, x_range + 1):
             covered_points.append((self.position[0] + x, loi))
         self.loi_coverage = covered_points
-            
-    def calc_coverage_range_restricted(self, loi: int, x_limit: int):
-        x_range = self.coverage_distance - abs(self.position[1] - loi)
-        x_lower = max(self.position[0] - abs(x_range), MIN_DISTRESS_COORD)
-        x_upper = min(self.position[0] + abs(x_range), x_limit)
-        return range(x_lower, x_upper + 1)
-        
-    def cover_points(self, x: int, y: int) -> list[tuple[int]]:
-        points = []
-        pos_x, pos_y = self.position
-        for i in range(-x, x + 1):
-            points.append((pos_x + i, pos_y + y))
-            points.append((pos_x + i, pos_y - y))
-        return points
-        
-    def calc_full_coverage(self):
-        covered = []
-        for d in range(self.coverage_distance + 1):
-            x = self.coverage_distance - d
-            y = d
-            # add points between position -x+y to +x+y and -x,-y to +x-y
-            covered += self.cover_points(x, y)
-        self.coverage = list(set(covered))
 
 
 def parse_sensor_points(inputs: list[str]) -> list[Sensor]:
@@ -69,10 +44,6 @@ def parse_sensor_points(inputs: list[str]) -> list[Sensor]:
         sensor = Sensor((int(s_x), int(s_y)), (int(b_x), int(b_y)))
         sensors.append(sensor)
     return sensors
-  
-  
-def calc_tuning_frequency(x: int, y: int) -> int:
-    return x * 4_000_000 + y 
 
     
 def rule_out_locations(inputs: list[str], line_of_interest: int) -> int:
@@ -89,21 +60,33 @@ def rule_out_locations(inputs: list[str], line_of_interest: int) -> int:
     return len(set(ruled_out))
 
 
-def find_distress_frequency(inputs: list[str], max_coord: int = MAX_DISTRESS_COORD) -> int:
-    sensors = parse_sensor_points(inputs)
-    # TODO: the theory seems sound, but this is not scaling to 4 Mio with lists!
-    for line in tqdm(range(MIN_DISTRESS_COORD, max_coord + 1)):
-        covered = set()
-        sensors_of_interest = [s for s in sensors if line in s.covered_lines]
-        for sensor in sensors_of_interest:
-            covered_new = sensor.calc_coverage_range_restricted(line, max_coord)
-            covered.update(set(covered_new))
-            if len(covered) == max_coord + 1:  # line is already fully covered
-                break
-        if len(covered) == max_coord:  # one entry missing for full line
-            empty_point_y = line
-            break
-    (empty_point_x, ) = set(range(MIN_DISTRESS_COORD, max_coord + 1)) - covered
+# for part 2, colleague LB had a very nice solution with shapely
+def parse_sensor_polygons(inputs: list[str]) -> list[Polygon]:
+    sensor_polygons = []
+    for line in inputs:
+        s_xy, b_xy = line.replace("Sensor at x=", "").split(": closest beacon is at x=")
+        s_x, s_y = map(int, s_xy.split(", y="))
+        b_x, b_y = map(int, b_xy.split(", y="))
+        coverage_distance = abs(s_x - b_x) + abs(s_y - b_y)
+        s = Polygon([
+            (s_x, s_y - coverage_distance), 
+            (s_x - coverage_distance, s_y), 
+            (s_x, s_y + coverage_distance), 
+            (s_x + coverage_distance, s_y)
+        ])
+        sensor_polygons.append(s)
+    return sensor_polygons
+
+
+def calc_tuning_frequency(x: int, y: int) -> int:
+    return int(x * 4_000_000 + y)
+
+
+def find_distress_frequency(inputs: list[str]) -> int:
+    sensor_polygons = parse_sensor_polygons(inputs)
+    sensor_coverage = unary_union(sensor_polygons)
+    # there should be only one hole in the unioned polygons, get its center point
+    empty_point_x, empty_point_y = sensor_coverage.interiors[0].centroid.coords[0]
     return calc_tuning_frequency(empty_point_x, empty_point_y)
 
 
@@ -114,7 +97,6 @@ def solve_a(puzzle: MyPuzzle):
 
 def solve_b(puzzle: MyPuzzle):
     answer_b = find_distress_frequency(puzzle.input_lines)
-    print(answer_b)
     puzzle.submit_b(answer_b)
 
 

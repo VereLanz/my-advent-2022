@@ -13,6 +13,7 @@ setup(
         "advent-of-code-data",  # aocd
         "matplotlib",
         "numpy",
+        "shapely",
         "tqdm",
     ],
     tests_require=[

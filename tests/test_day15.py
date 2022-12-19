@@ -18,7 +18,6 @@ EXAMPLE_INPUT = [
     "Sensor at x=14, y=3: closest beacon is at x=15, y=3",
     "Sensor at x=20, y=1: closest beacon is at x=15, y=3",
 ]
-MAX_TEST_DISTRESS_COORD = 20
 
 
 def test_example_a():
@@ -28,4 +27,4 @@ def test_example_a():
 
 def test_example_b():
     example_result = 56_000_011
-    assert b(EXAMPLE_INPUT, max_coord=MAX_TEST_DISTRESS_COORD) == example_result
+    assert b(EXAMPLE_INPUT) == example_result
