@@ -348,7 +348,15 @@ the outer area being cooled faster. How much strictly outer surface area does th
 
 ---
 ## Day 19
+### *Robots for Geodes*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day19.py)
+### Part One
+You find yourself among an abundance of ore, clay, obsidian and geodes. With your handy ore-mining robot
+you want to efficiently start mining things and building more robots to crack a lot of geodes in little time.
+How good do the differnt blueprints you have look?
 
+### Part Two
+-
 
 [top &#8593;](#top)
 
@@ -356,7 +364,14 @@ the outer area being cooled faster. How much strictly outer surface area does th
 
 ---
 ## Day 20
+### *Shuffling for Encryption*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day20.py)
+### Part One
+You can soon head to the star fruit grove! The file for its location, however, is encrypted.
+Mix it around as instructed to decypher the grove's coordinates!
 
+### Part Two
+-
 
 [top &#8593;](#top)
 
