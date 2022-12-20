@@ -13,6 +13,7 @@ setup(
         "advent-of-code-data",  # aocd
         "matplotlib",
         "numpy",
+        "scipy",
         "shapely",
         "tqdm",
     ],

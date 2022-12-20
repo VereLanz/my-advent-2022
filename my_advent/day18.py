@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import numpy as np
+from scipy.ndimage import binary_fill_holes
 
 from my_advent import get_todays_puzzle, MyPuzzle
 
@@ -36,46 +37,57 @@ def find_droplet_surface_area(inputs: list[str]) -> int:
         droplet_faces[cube] = 6 - len(find_neighbours(cube, cube_coords))
 
     return int(np.sum(droplet_faces))
+   
 
-
-def surrounded_by_blocks(
-    cube: Coords, 
-    cube_coords: list[Coords], 
-    empty_cubes: list[Coords], 
-    checked: list[Coords] = []
-) -> int:
-    if cube in checked:
-        return 0
-    checked.append(cube)
+def find_enclosed_spaces(cube_coords: list[Coords]) -> set[Coords]:
+    # grid with all solid cubes = 1
+    x_coords = set([x for x, *_ in cube_coords])
+    y_coords = set([y for _, y, _ in cube_coords])
+    z_coords = set([z for *_, z in cube_coords])
+    cube_grid = np.zeros(
+        shape=(max(x_coords) + 1, max(y_coords) + 1, max(z_coords) + 1)
+    )
+    for cube in cube_coords:
+        cube_grid[cube] = 1
     
-    neighbours = find_neighbours(cube, cube_coords)
-    if len(neighbours) == 6:
-        # surrounded by blocks
-        return 6
-    
-    # TODO: how to handle empty space surrounded by more empty space but ultimately enclosed?
-    # empty_neighbours = find_neighbours(cube, empty_cubes)
-    return 0
+    # holes in 2D for x layers walked
+    x_holes = []
+    for x in x_coords:
+        x_layer = cube_grid[x, :, :]
+        holes = binary_fill_holes(x_layer) - x_layer
+        hole_coords = np.argwhere(holes == 1).tolist()
+        x_holes += [(x, y, z) for y, z in hole_coords if (x, y, z) not in cube_coords]
+    # holes in 2D for y layers walked
+    y_holes = []
+    for y in y_coords:
+        y_layer = cube_grid[:, y, :]
+        holes = binary_fill_holes(y_layer) - y_layer
+        hole_coords = np.argwhere(holes == 1).tolist()
+        y_holes += [(x, y, z) for x, z in hole_coords if (x, y, z) not in cube_coords]
+    # holes in 2D for z layers walked
+    z_holes = []
+    for z in z_coords:
+        z_layer = cube_grid[:, :, z]
+        holes = binary_fill_holes(z_layer) - z_layer
+        hole_coords = np.argwhere(holes == 1).tolist()
+        z_holes += [(x, y, z) for x, y in hole_coords if (x, y, z) not in cube_coords]
+    # if holes are enclosed in all 2D planes, they are 3D holes as well
+    return set(x_holes) & set(y_holes) & set(z_holes)
     
 
 def find_droplet_outer_surface_area(inputs: list[str]) -> int:
     cube_coords = [tuple(map(int, line.split(","))) for line in inputs]
-    
-    x_max = max([x for x, *_ in cube_coords])
-    y_max = max([y for _, y, _ in cube_coords])
-    z_max = max([z for *_, z in cube_coords])
-    droplet_faces = np.zeros(shape=(x_max + 1, y_max + 1, z_max + 1))
-    for cube in cube_coords:
-        droplet_faces[cube] = 6 - len(find_neighbours(cube, cube_coords))
-    all_faces = int(np.sum(droplet_faces))
+    # all non-solid-neighboured surfaces
+    all_faces = 0
+    for cube in set(cube_coords):
+        all_faces += 6 - len(find_neighbours(cube, cube_coords))
         
-    # find out which empty spaces are enclosed by cubes
-    empty_cubes = set(map(tuple, np.argwhere(droplet_faces == 0).tolist()))
-    empty_cubes = empty_cubes - set(cube_coords)
+    # find out which spaces are enclosed by solid cubes
+    enclosed_spaces = find_enclosed_spaces(cube_coords)
+    # get all the solid faces that enclosed holes touch
     enclosed_space_faces = 0
-    for cube in empty_cubes:
-        enclosed_space_faces += surrounded_by_blocks(cube, cube_coords, empty_cubes)
-    
+    for space in enclosed_spaces:
+        enclosed_space_faces += 6 - len(find_neighbours(space, enclosed_spaces))
     return int(all_faces - enclosed_space_faces)
 
 
