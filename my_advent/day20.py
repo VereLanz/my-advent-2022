@@ -14,33 +14,33 @@ def move_idx_entry(
     n_entries: int
 ) -> dict:
     current_movement = mixing_movement[idx]
-    # from shifting, some movements could again have become LONGER than the list
-    current_movement = int(
-        copysign(abs(current_movement) % (n_entries - 1), current_movement)
-    )
+    current_position = new_positions.get(idx, idx)
     
     # movement wraps around at the end, i.e. goes backward
-    if idx + current_movement >= n_entries:
+    if current_position + current_movement >= n_entries:
         actual_movement = current_movement - (n_entries - 1)
-        # adjust all influenced indices via their movements 
-        for passed_idx in range(idx + actual_movement, idx):
-            mixing_movement[passed_idx] += 1
     # movement wraps around at the beginning, i.e. goes forward
-    elif idx + current_movement < 0:
+    elif current_position + current_movement < 0:
         actual_movement = current_movement + (n_entries - 1)
-        # adjust all influenced indices via their movements 
-        for passed_idx in range(idx + 1, idx + actual_movement + 1):
-            mixing_movement[passed_idx] -= 1
     # movement stays in list, i.e. moves forward without change
     else:
         actual_movement = current_movement
-        # adjust all influenced indices via their movements 
-        for passed_idx in range(idx + 1, idx + actual_movement + 1):
-            mixing_movement[passed_idx] -= 1
-            
-    mixing_movement[idx] = actual_movement
-    print(mixing_movement, end="\n\n")
-    return mixing_movement
+    
+    print(actual_movement)
+    # adjust others' positions accordingly
+    # take care not to move indices to overlap -> otherwise searching duplicates!
+    if actual_movement > 0:
+        for passed_idx in range(current_position + 1, current_position + actual_movement + 1):
+            old_idx_of_passed = list(new_positions.values()).index(passed_idx)
+            new_positions[old_idx_of_passed] = passed_idx - 1
+    elif actual_movement < 0:
+        for passed_idx in range(current_position - 1, current_position + actual_movement - 1, -1):
+            old_idx_of_passed = list(new_positions.values()).index(passed_idx)
+            new_positions[old_idx_of_passed] = passed_idx + 1
+        
+    new_positions[idx] = current_position + actual_movement
+    print(new_positions, end="\n\n")
+    return new_positions
 
 
 def decode_mixed_list(inputs: list[str]) -> int:
@@ -48,20 +48,15 @@ def decode_mixed_list(inputs: list[str]) -> int:
     print(encoded_values)
     n_entries = len(encoded_values)
     mixing_movement = dict()
-    for i, entry in enumerate(encoded_values):
-        mixing_movement[i] = int(copysign(abs(entry) % (n_entries - 1), entry))
-    # adjust movements for wrapping and each other's movements
     new_positions = dict()
+    for i, entry in enumerate(encoded_values):
+        new_positions[i] = i
+        mixing_movement[i] = int(copysign(abs(entry) % (n_entries - 1), entry))
+        
+    # carry out movements, adjusting for wrapping and each other's movements
     for idx in mixing_movement.keys():
         print(idx)
-        move_idx_entry(idx, mixing_movement, n_entries)
-        
-   # new_positions = dict()
-   # # create lookup with new indices after movement
-   # for old_idx, movement in mixing_movement.items():
-   #     # key is new index, value is old index
-   #     print(old_idx, movement, old_idx + movement)
-   #     new_positions[old_idx + movement] = old_idx
+        new_positions = move_idx_entry(idx, mixing_movement, new_positions, n_entries)
         
     # find values at 0 index + POI (could probably wrap) for the answer
     zero_idx = encoded_values.index(0)
