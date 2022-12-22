@@ -379,7 +379,14 @@ Mix it around as instructed to decypher the grove's coordinates!
 
 ---
 ## Day 21
+### *Translation for Monkeys*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day21.py)
+### Part One
+The monkey gang has come back. But this time, they want to give you a code instead of steal your
+stuff. You just have to figure it out, with the help of you elephant translators.
 
+### Part Two
+-
 
 [top &#8593;](#top)
 
@@ -387,7 +394,14 @@ Mix it around as instructed to decypher the grove's coordinates!
 
 ---
 ## Day 22
+### *Moving for Password*
+[code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day22.py)
+### Part One
+The monkeys share a map and movement instructions with you. If you follow them correctly, you will
+reach a position that gives you the password to enter the star fruit grove.
 
+### Part Two
+-
 
 [top &#8593;](#top)
 
