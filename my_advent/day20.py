@@ -1,6 +1,7 @@
 from math import copysign
 from pathlib import Path
 
+import numpy as np
 from tqdm import tqdm
 
 from my_advent import get_todays_puzzle, MyPuzzle
@@ -12,10 +13,10 @@ POI = [1000, 2000, 3000]  # positions after 0
 def move_idx_entry(
     idx: int, 
     mixing_movement: int, 
-    new_positions: dict[int, int], 
+    new_positions: np.ndarray, 
     n_entries: int
-) -> dict:
-    current_position = new_positions.get(idx, idx)
+) -> np.ndarray:
+    current_position = new_positions[idx]
     
     # movement wraps around at the end, i.e. goes backward
     if current_position + mixing_movement >= n_entries:
@@ -32,14 +33,14 @@ def move_idx_entry(
     if actual_movement > 0:
         walk = range(current_position + 1, current_position + actual_movement + 1)
         for passed_idx in walk:
-            old_idx_of_passed = list(new_positions.values()).index(passed_idx)
+            old_idx_of_passed = np.where(new_positions == passed_idx)[0][0]
             new_positions[old_idx_of_passed] = passed_idx - 1
     elif actual_movement < 0:
         walk_backwards = range(
             current_position - 1, current_position + actual_movement - 1, -1
         )
         for passed_idx in walk_backwards:
-            old_idx_of_passed = list(new_positions.values()).index(passed_idx)
+            old_idx_of_passed = np.where(new_positions == passed_idx)[0][0]
             new_positions[old_idx_of_passed] = passed_idx + 1
         
     new_positions[idx] = current_position + actual_movement
@@ -49,9 +50,7 @@ def move_idx_entry(
 def decode_mixed_list(inputs: list[str]) -> int:
     encoded_values = list(map(int, inputs))
     n_entries = len(encoded_values)
-    new_positions = dict()
-    for i in range(n_entries):
-        new_positions[i] = i
+    new_positions = np.arange(n_entries)
         
     # carry out movements, adjusting for wrapping and each other's movements
     for idx, value in tqdm(enumerate(encoded_values)):
@@ -65,9 +64,7 @@ def decode_mixed_list(inputs: list[str]) -> int:
         lookup_idx = zero_new_idx + (position % n_entries)
         if lookup_idx >= n_entries:
             lookup_idx -= n_entries
-        old_idx_translation = list(new_positions.keys())[
-            list(new_positions.values()).index(lookup_idx)
-        ]
+        old_idx_translation = np.where(new_positions == lookup_idx)[0][0]
         coordinates_key += encoded_values[old_idx_translation]
     return coordinates_key
 
@@ -79,7 +76,6 @@ def b(inputs: list[str]) -> int:
 def solve_a(puzzle: MyPuzzle):
     answer_a = decode_mixed_list(puzzle.input_lines)
     puzzle.submit_a(answer_a)
-    # 15578 too high
 
 
 def solve_b(puzzle: MyPuzzle):

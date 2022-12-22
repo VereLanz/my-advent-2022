@@ -366,7 +366,7 @@ How good do the differnt blueprints you have look?
 ## Day 20
 ### *Shuffling for Encryption*
 [code &#8614;](https://github.com/VereLanz/my-advent-2022/blob/main/my_advent/day20.py)
-### Part One
+### Part One &#11088;
 You can soon head to the star fruit grove! The file for its location, however, is encrypted.
 Mix it around as instructed to decypher the grove's coordinates!
 
