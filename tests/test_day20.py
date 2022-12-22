@@ -1,4 +1,4 @@
-from my_advent.day20 import a as a
+from my_advent.day20 import decode_mixed_list as a
 from my_advent.day20 import b as b
 
 
