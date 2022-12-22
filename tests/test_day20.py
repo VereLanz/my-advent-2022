@@ -1,5 +1,5 @@
 from my_advent.day20 import decode_mixed_list as a
-from my_advent.day20 import b as b
+from my_advent.day20 import decode_seriously_mixed_list as b
 
 
 EXAMPLE_INPUT = [
@@ -19,5 +19,5 @@ def test_example_a():
 
 
 def test_example_b():
-    example_result = 0
+    example_result = 1623178306
     assert b(EXAMPLE_INPUT) == example_result

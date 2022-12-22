@@ -7,7 +7,8 @@ from tqdm import tqdm
 from my_advent import get_todays_puzzle, MyPuzzle
 
 
-POI = [1000, 2000, 3000]  # positions after 0
+POI = [1000, 2000, 3000]  # "positions of interest" after 0
+DECRYPTION_KEY = 811_589_153
 
 
 def move_idx_entry(
@@ -69,8 +70,32 @@ def decode_mixed_list(inputs: list[str]) -> int:
     return coordinates_key
 
 
-def b(inputs: list[str]) -> int:
-    return 0
+def decode_seriously_mixed_list(inputs: list[str]) -> int:
+    encoded_values = np.array(list(map(int, inputs)))
+    n_entries = len(encoded_values)
+    new_positions = np.arange(n_entries)
+    
+    # multiply everything by the decryption key 
+    encoded_values *= DECRYPTION_KEY
+    # carry out movements 10 times, adjusting for wrapping and each other's movements
+    for _ in range(10):
+        for idx, value in tqdm(enumerate(encoded_values)):
+            mixing_movement = int(copysign(abs(value) % (n_entries - 1), value))
+            new_positions = move_idx_entry(
+                idx, mixing_movement, new_positions, n_entries
+            )
+        
+    # find values at 0 index + POI (attention to wrap) for the answer
+    zero_index = np.where(encoded_values == 0)[0][0]
+    zero_new_idx = new_positions[zero_index]
+    coordinates_key = 0
+    for position in POI:
+        lookup_idx = zero_new_idx + (position % n_entries)
+        if lookup_idx >= n_entries:
+            lookup_idx -= n_entries
+        old_idx_translation = np.where(new_positions == lookup_idx)[0][0]
+        coordinates_key += encoded_values[old_idx_translation]
+    return coordinates_key
 
 
 def solve_a(puzzle: MyPuzzle):
@@ -79,7 +104,7 @@ def solve_a(puzzle: MyPuzzle):
 
 
 def solve_b(puzzle: MyPuzzle):
-    answer_b = b(puzzle.input_lines)
+    answer_b = decode_seriously_mixed_list(puzzle.input_lines)
     puzzle.submit_b(answer_b)
 
 
@@ -87,5 +112,5 @@ if __name__ == "__main__":
     # assumes the filename is always "day{day_nr}"
     day_nr = int(Path(__file__).stem[3:])
     my_puzzle = get_todays_puzzle(day_nr)
-    solve_a(my_puzzle)
+    # solve_a(my_puzzle)
     # solve_b(my_puzzle)

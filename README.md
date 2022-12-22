@@ -370,8 +370,9 @@ How good do the differnt blueprints you have look?
 You can soon head to the star fruit grove! The file for its location, however, is encrypted.
 Mix it around as instructed to decypher the grove's coordinates!
 
-### Part Two
--
+### Part Two &#11088;
+Well, that was not how you do the encryption, you remember that you first need to multiply by
+large numbers and also repeat the mixing 10 times. Try again!
 
 [top &#8593;](#top)
 
